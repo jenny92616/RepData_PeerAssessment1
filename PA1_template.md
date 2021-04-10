@@ -14,6 +14,26 @@ output:
 setwd("C:/Users/John/Desktop/repData")
 library("data.table")
 library(ggplot2)
+library(DescTools)
+```
+
+```
+## Warning: package 'DescTools' was built under R version 4.0.5
+```
+
+```
+## 
+## Attaching package: 'DescTools'
+```
+
+```
+## The following object is masked from 'package:data.table':
+## 
+##     %like%
+```
+
+```r
+PATH="${RTOOLS40_HOME}\bin;${PATH}"
 ```
 ## Reading csv Data into Data.Table. 
 
@@ -58,7 +78,7 @@ ggplot(Total_Steps, aes(x = steps)) +
 ## Warning: Removed 8 rows containing non-finite values (stat_bin).
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/data-import-1.png)<!-- -->
 
 3. Calculate and report the mean and median of the total number of steps taken per day
 
@@ -81,7 +101,7 @@ IntervalDT <- activityDT[, c(lapply(.SD, mean, na.rm = TRUE)), .SDcols = c("step
 ggplot(IntervalDT, aes(x = interval , y = steps)) + geom_line(color="blue", size=1) + labs(title = "Avg. Daily Steps", x = "Interval", y = "Avg. Steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -152,7 +172,7 @@ Total_Steps[, .(Mean_Steps = mean(steps), Median_Steps = median(steps))]
 ggplot(Total_Steps, aes(x = steps)) + geom_histogram(fill = "blue", binwidth = 1000) + labs(title = "Daily Steps", x = "Steps", y = "Frequency")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 Type of Estimate | Mean_Steps | Median_Steps
 --- | --- | ---
@@ -198,4 +218,4 @@ IntervalDT <- activityDT[, c(lapply(.SD, mean, na.rm = TRUE)), .SDcols = c("step
 ggplot(IntervalDT , aes(x = interval , y = steps, color=`weekday or weekend`)) + geom_line() + labs(title = "Avg. Daily Steps by Weektype", x = "Interval", y = "No. of Steps") + facet_wrap(~`weekday or weekend` , ncol = 1, nrow=2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
