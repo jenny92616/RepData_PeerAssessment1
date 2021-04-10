@@ -18,8 +18,7 @@ library(rmarkdown)
 library("data.table")
 library(ggplot2)
 library(DescTools)
-library(ggraph) 
-PATH="${RTOOLS40_HOME}\bin;${PATH}"
+
 ```
 ## Reading csv Data into Data.Table. 
 ```{r}
