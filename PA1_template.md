@@ -3,7 +3,7 @@
     setwd("C:/Users/John/Desktop/repData")
     library(knitr)
     library(rmarkdown)
-    library("data.table")
+    library(data.table)
     library(ggplot2)
     library(DescTools)
 
