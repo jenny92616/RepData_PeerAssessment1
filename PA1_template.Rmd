@@ -2,8 +2,11 @@
 title: 'Reproducible Research: Peer Assessment 1'
 output:
   html_document:
-    keep_md: yes
-  pdf_document: default
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
 ---
 
 
@@ -11,10 +14,11 @@ output:
 
 ```{r}
 setwd("C:/Users/John/Desktop/repData")
+library(rmarkdown)
 library("data.table")
 library(ggplot2)
 library(DescTools)
-
+library(ggraph) 
 PATH="${RTOOLS40_HOME}\bin;${PATH}"
 ```
 ## Reading csv Data into Data.Table. 
