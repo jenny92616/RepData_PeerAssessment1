@@ -1,5 +1,5 @@
 setwd("C:/Users/John/Desktop/repData")
-
+library(knitr)
 
 # Loading and preprocessing the data
 activity <- read.csv(file="activity.csv", header=TRUE)
@@ -82,3 +82,6 @@ complete_activity$day_of_week <- ifelse(isWeekday(complete_steps_per_day$date)==
 # and the average number of steps taken across all weekdays or weekends
 library(lattice)
 xyplot(steps ~ interval | day_of_week, layout = c(1, 2), data=complete_activity, type="l")
+
+
+knit("PA1_template.Rmd", output = NULL)

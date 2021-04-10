@@ -174,21 +174,55 @@ pre code {
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
-<blockquote>
-<p>mean(steps_per_day<span class="math inline">\(sum) [1] 9354.23 median(steps_per_day\)</span>sum) [1] 10395</p>
-</blockquote>
+<p>library(plyr) steps_per_day &lt;- ddply(activity, .(date), summarise, sum = sum(steps, na.rm=T)) steps_per_day</p>
 </div>
+<div id="make-a-histogram-of-the-total-number-of-steps-taken-per-day" class="section level1">
+<h1>Make a histogram of the total number of steps taken per day</h1>
+<p>hist(totalSteps$steps, main = “Total Steps per Day”, xlab = “Number of Steps”)</p>
+</div>
+<div id="calculate-and-report-the-mean-and-median-of-total-steps-taken-per-day" class="section level1">
+<h1>Calculate and report the mean and median of total steps taken per day</h1>
+<p>mean(steps_per_day<span class="math inline">\(sum) median(steps_per_day\)</span>sum)</p>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>
-<p>interval sum 104 835 10927</p>
 </div>
+</div>
+<div id="make-a-time-series-plot-of-the-5-minute-interval-and-the-average-number-of" class="section level1">
+<h1>Make a time-series plot of the 5-minute interval and the average number of</h1>
+</div>
+<div id="steps-taken-averaged-acoss-all-days." class="section level1">
+<h1>steps taken, averaged acoss all days.</h1>
+<p>library(ggplot2) steps_per_interval &lt;- ddply(activity, .(interval), summarise, sum = sum(steps, na.rm=T)) p &lt;- ggplot(steps_per_interval, aes(x=interval, y=sum, group=1)) p + geom_line() + labs(title = “Average Steps per Day by 5-min Intervals, Oct-Nov 2012”) + labs(x = “5-minute Intervals”, y = “Average Number of Steps”)</p>
+</div>
+<div id="which-5-minute-interval-across-all-days-contain-the-maximum-number-of-steps" class="section level1">
+<h1>Which 5-minute interval across all days contain the maximum number of steps</h1>
+<p>steps_per_interval[ which(steps_per_interval<span class="math inline">\(sum==(max(steps_per_interval\)</span>sum))), ]</p>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
-<p>NA_values &lt;- activity[!complete.cases(activity),] &gt; nrow(NA_values) [1] 2304</p>
+<p>NA_values &lt;- activity[!complete.cases(activity),] nrow(NA_values)</p>
 </div>
+</div>
+<div id="devise-a-strategy-for-filling-in-all-of-the-missing-values" class="section level1">
+<h1>Devise a strategy for filling in all of the missing values</h1>
+</div>
+<div id="calculate-the-mean-for-each-interval" class="section level1">
+<h1>Calculate the mean for each interval</h1>
+<p>interval_mean &lt;- ddply(activity, .(interval), summarise, mean = mean(steps, na.rm=T)) # Add the interval mean as a new variable to the activity dataset activity_with_interval_mean &lt;- join(activity, interval_mean)</p>
+</div>
+<div id="write-function-that-will-replace-na-values-with-the-interval-mean" class="section level1">
+<h1>Write function that will replace NA values with the interval mean</h1>
+<p>replace_NA &lt;- function(dataset, variable, replacement) { for (i in 1:nrow(dataset)) { if (is.na(dataset[i, variable])) { dataset[i, variable] &lt;- dataset[i, replacement] } } dataset } # Run the function on the dataset complete_activity &lt;- replace_NA(activity_with_interval_mean, variable=1, replacement=4) complete_activity &lt;- complete_activity[, -4] head(complete_activity)</p>
+</div>
+<div id="make-a-histogram-of-the-total-number-of-steps-taken-each-day-and" class="section level1">
+<h1>Make a histogram of the total number of steps taken each day and</h1>
+</div>
+<div id="and-report-the-mean-and-median." class="section level1">
+<h1>and report the mean and median.</h1>
+<p>complete_steps_per_day &lt;- ddply(complete_activity, .(date), summarise, sum = sum(steps)) complete_steps_per_day<span class="math inline">\(sum &lt;- round(complete_steps_per_day\)</span>sum) hist(complete_steps_per_day<span class="math inline">\(sum, ylab=&quot;Number of Days&quot;, col=&quot;red&quot;, xlab=&quot;Number of Steps&quot;, main=&quot;Histogram of Steps Per Day, Oct-Nov 2012&quot;) mean(steps_per_day\)</span>sum) mean(complete_steps_per_day<span class="math inline">\(sum) median(steps_per_day\)</span>sum) median(complete_steps_per_day$sum)</p>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<p>install.packages(“timeDate”) library(timeDate) complete_activity<span class="math inline">\(day_of_week &lt;- ifelse(isWeekday(complete_steps_per_day\)</span>date)==TRUE, “weekday”, “weekend”)</p>
+<p>library(timeDate) complete_activity<span class="math inline">\(day_of_week &lt;- ifelse(isWeekday(complete_steps_per_day\)</span>date)==TRUE, “weekday”, “weekend”)</p>
+</div>
 </div>
 <div id="make-a-panel-plot-containnig-a-time-series-plot-of-the-5-minute-interval" class="section level1">
 <h1>Make a panel plot containnig a time-series plot of the 5-minute interval</h1>
